@@ -222,30 +222,47 @@ input[type="number"] {
 
 {% block start %}
     <h1>Expense Tracker</h1>
-    <div class="container">
-      <div class="header">
-        <img
-          src="https://i.ibb.co/jfScDTC/budget.png"
-          alt="Expense Tracker"
-        />
-        <div class="balance-container">
-          <h2>Your Balance</h2>
-          <h2 id="balance" class="balance">$0.00</h2>
+
+
+<div class="container">
+        <div class="header">
+            <img src="https://i.ibb.co/jfScDTC/budget.png" alt="Expense Tracker" />
+            <div class="balance-container">
+                <h2>Your Balance</h2>
+                <h2 id="balance" class="balance">${{current_balance.current_balance}}</h2>
+            </div>
         </div>
-      </div>
-      <div class="inc-exp-container">
-        <div>
-          <h4>Income</h4>
-          <p id="money-plus" class="money plus">+$0.00</p>
+        <div class="inc-exp-container">
+            <div>
+                <h4>Income</h4>
+                <p id="money-plus" class="money plus">+${{income}}</p>
+            </div>
+            <div>
+                <h4>Expenses</h4>
+                <p id="money-minus" class="money minus">${{expense}}</p>
+            </div>
         </div>
-        <div>
-          <h4>Expenses</h4>
-          <p id="money-minus" class="money minus">-$0.00</p>
-        </div>
-      </div>
-      <h3>History</h3>
-      <ul id="list" class="list"></ul>
+        <h3>History</h3>
+       <ul id="list" class="list">
+            {% for transaction in transactions %}
+
+            <li class="{% if transaction.expense_type == 'DEBIT' %} minus {% else %} plus {% endif %}">
+                {{transaction.description}} <span> {{transaction.amount}} </span>
+                 <a class="delete-btn" href="{% url 'delete_transaction' transaction.id %}">
+                    <i class="fas fa-trash-alt"></i></a>
+
+               
+            </li>
+
+            {% endfor %}
+   
+ 
+
       <h3>Add new transaction</h3>
+     
+       
+
+
       <form id="form" method='POST'>
         {% csrf_token %}
         <div class="form-control">
