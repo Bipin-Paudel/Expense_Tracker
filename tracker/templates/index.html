@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/media/css/main.css">
-    <link rel="stylesheet" href="/Users/bipinpaudel/Downloads/projects/expensetracker/public/static/css">
+{% extends "base.html" %}
+{% load static %}
 
 
-
-    <style>
+   {% block style %}
      
         @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
 
@@ -225,10 +218,9 @@ input[type="number"] {
   margin: 0;
 }
 
-    </style>
-</head>
-<body>
+ {% endblock  %}
 
+{% block start %}
     <h1>Expense Tracker</h1>
     <div class="container">
       <div class="header">
@@ -255,18 +247,19 @@ input[type="number"] {
       <ul id="list" class="list"></ul>
       <h3>Add new transaction</h3>
       <form id="form">
+        {% csrf_token %}
         <div class="form-control">
           <label for="text">Description</label>
-          <input type="text" id="text" placeholder="Enter description..." />
+          <input type="text" id="text" name='description' placeholder="Enter description..." />
         </div>
         <div class="form-control">
           <label for="amount"
             >Amount <br />
             <small>(-100 = expense, 100 = income)</small></label
           >
-          <input type="number" id="amount" placeholder="Enter amount..." />
+          <input type="number" id="amount" name='amount' placeholder="Enter amount..." />
         </div>
-        <button class="btn">Add transaction</button>
+        <button class="btn" type='submit'>Add transaction</button>
       </form>
     </div>
     <!-- Notification -->
@@ -274,5 +267,4 @@ input[type="number"] {
       <p>Please add a description and amount</p>
     </div>
 
-</body>
-</html>
+{% endblock  %}
