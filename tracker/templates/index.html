@@ -246,7 +246,7 @@ input[type="number"] {
       <h3>History</h3>
       <ul id="list" class="list"></ul>
       <h3>Add new transaction</h3>
-      <form id="form">
+      <form id="form" method='POST'>
         {% csrf_token %}
         <div class="form-control">
           <label for="text">Description</label>
